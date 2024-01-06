@@ -10,7 +10,6 @@ const LS_KEY = 'phone_contacts';
 export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
-  const [isOpened, setIsOpened] = useState(false);
 
   const addContact = ({ name, number }) => {
     const contact = {
@@ -30,7 +29,6 @@ export const App = () => {
   };
 
   useEffect(() => {
-    setIsOpened(true);
     const storedContacts = JSON.parse(localStorage.getItem(LS_KEY));
     console.log('storedContacts :>> ', storedContacts);
     if (storedContacts) {
@@ -39,8 +37,8 @@ export const App = () => {
   }, []);
 
   useEffect(() => {
-    isOpened && localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-  }, [contacts, isOpened]);
+    localStorage.setItem(LS_KEY, JSON.stringify(contacts));
+  }, [contacts]);
 
   const deleteContact = contactId => {
     setContacts(prev => prev.filter(({ id }) => contactId !== id));
